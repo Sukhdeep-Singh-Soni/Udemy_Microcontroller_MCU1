@@ -1,0 +1,17 @@
+18:07:33 **** Incremental Build of configuration Debug for project 003_HSI_Clock_MCO ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F401RE -DSTM32 -DSTM32F401RETx -DSTM32F4 -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "003_HSI_Clock_MCO.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/deep/Desktop/Udemy_Microcontroller_MCU1/MCU1/003_HSI_Clock_MCO/STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="003_HSI_Clock_MCO.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 003_HSI_Clock_MCO.elf
+ 
+arm-none-eabi-size  003_HSI_Clock_MCO.elf 
+arm-none-eabi-objdump -h -S 003_HSI_Clock_MCO.elf  > "003_HSI_Clock_MCO.list"
+   text	   data	    bss	    dec	    hex	filename
+    812	      0	   1568	   2380	    94c	003_HSI_Clock_MCO.elf
+Finished building: default.size.stdout
+ 
+Finished building: 003_HSI_Clock_MCO.list
+ 
+
+18:07:35 Build Finished. 0 errors, 0 warnings. (took 2s.135ms)
+
