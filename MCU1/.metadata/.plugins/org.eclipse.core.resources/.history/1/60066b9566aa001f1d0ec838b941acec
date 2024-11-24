@@ -32,17 +32,17 @@ void GPIO_PCLKCtrl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
 		}
 	} else {
 		if(pGPIOx == GPIOA) {
-			GPIOA_CLK_DI();
+			GPIOA_CLK_EN();
 		} else if(pGPIOx == GPIOB) {
-			GPIOB_CLK_DI();
+			GPIOB_CLK_EN();
 		} else if(pGPIOx == GPIOC) {
-			GPIOC_CLK_DI();
+			GPIOC_CLK_EN();
 		} else if(pGPIOx == GPIOD) {
-			GPIOD_CLK_DI();
+			GPIOD_CLK_EN();
 		} else if(pGPIOx == GPIOE) {
-			GPIOE_CLK_DI();
+			GPIOE_CLK_EN();
 		} else if(pGPIOx == GPIOH) {
-			GPIOH_CLK_DI();
+			GPIOH_CLK_EN();
 		}
 	}
 }

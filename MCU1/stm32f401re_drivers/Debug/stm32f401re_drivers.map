@@ -277,7 +277,7 @@ Discarded input sections
  .data          0x00000000        0x0 ./drivers/src/stm32f401re_gpio_driver.o
  .bss           0x00000000        0x0 ./drivers/src/stm32f401re_gpio_driver.o
  .text.GPIO_PCLKCtrl
-                0x00000000       0x18 ./drivers/src/stm32f401re_gpio_driver.o
+                0x00000000      0x140 ./drivers/src/stm32f401re_gpio_driver.o
  .text.GPIO_Init
                 0x00000000       0x14 ./drivers/src/stm32f401re_gpio_driver.o
  .text.GPIO_DeInit
@@ -294,12 +294,12 @@ Discarded input sections
                 0x00000000       0x1c ./drivers/src/stm32f401re_gpio_driver.o
  .text.IRQConfig
                 0x00000000       0x16 ./drivers/src/stm32f401re_gpio_driver.o
- .debug_info    0x00000000      0x398 ./drivers/src/stm32f401re_gpio_driver.o
+ .debug_info    0x00000000      0x51f ./drivers/src/stm32f401re_gpio_driver.o
  .debug_abbrev  0x00000000       0xf8 ./drivers/src/stm32f401re_gpio_driver.o
  .debug_aranges
                 0x00000000       0x60 ./drivers/src/stm32f401re_gpio_driver.o
  .debug_rnglists
-                0x00000000       0x43 ./drivers/src/stm32f401re_gpio_driver.o
+                0x00000000       0x44 ./drivers/src/stm32f401re_gpio_driver.o
  .debug_macro   0x00000000       0x7c ./drivers/src/stm32f401re_gpio_driver.o
  .debug_macro   0x00000000      0xac0 ./drivers/src/stm32f401re_gpio_driver.o
  .debug_macro   0x00000000       0x22 ./drivers/src/stm32f401re_gpio_driver.o
@@ -309,8 +309,8 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a ./drivers/src/stm32f401re_gpio_driver.o
  .debug_macro   0x00000000      0x1df ./drivers/src/stm32f401re_gpio_driver.o
  .debug_macro   0x00000000      0x1f5 ./drivers/src/stm32f401re_gpio_driver.o
- .debug_line    0x00000000      0x48f ./drivers/src/stm32f401re_gpio_driver.o
- .debug_str     0x00000000     0x4a36 ./drivers/src/stm32f401re_gpio_driver.o
+ .debug_line    0x00000000      0x523 ./drivers/src/stm32f401re_gpio_driver.o
+ .debug_str     0x00000000     0x4b2a ./drivers/src/stm32f401re_gpio_driver.o
  .comment       0x00000000       0x44 ./drivers/src/stm32f401re_gpio_driver.o
  .debug_frame   0x00000000      0x178 ./drivers/src/stm32f401re_gpio_driver.o
  .ARM.attributes
