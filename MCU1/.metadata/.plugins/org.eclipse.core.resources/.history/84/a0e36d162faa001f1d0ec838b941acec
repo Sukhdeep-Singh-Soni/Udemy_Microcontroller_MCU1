@@ -85,14 +85,5 @@ typedef struct {
 	__vo uint32_t AFR[2]; /*AFR[0] : GPIO alternate function low register address offset=0x20, AFR[1] : GPIO alternate function high register, address offset=0x24*/
 }GPIO_RegDef_t;
 
-/*
- * peripheral register definitions
- * */
-#define GPIOA		((GPIO_RegDef_t*)GPIOA_BASEADDR)
-#define GPIOB		((GPIO_RegDef_t*)GPIOB_BASEADDR)
-#define GPIOC		((GPIO_RegDef_t*)GPIOC_BASEADDR)
-#define GPIOD		((GPIO_RegDef_t*)GPIOD_BASEADDR)
-#define GPIOE		((GPIO_RegDef_t*)GPIOE_BASEADDR)
-#define GPIOH		((GPIO_RegDef_t*)GPIOH_BASEADDR)
 
 #endif /* INC_STM32F401RE_H_ */
