@@ -86,7 +86,46 @@ typedef struct {
 }GPIO_RegDef_t;
 
 /*
- * peripheral register definitions
+ * peripheral register definition structure for RCC
+ * */
+typedef struct {
+	__vo uint32_t CR; /*RCC clock control register ,address offset=0x00*/
+	__vo uint32_t PLLCFGR; /*RCC PLL configuration register, address offset=0x04*/
+	__vo uint32_t CFGR; /*RCC clock configuration register, address offset=0x08*/
+	__vo uint32_t CIR; /*RCC clock interrupt register, address offset=0x0C*/
+	__vo uint32_t AHB1RSTR; /*RCC AHB1 peripheral reset register, address offset=0x10*/
+	__vo uint32_t AHB2RSTR; /*RCC AHB2 peripheral reset register, address offset=0x14*/
+	__vo uint32_t Reserved0[2]; /*Reserved0[0] : address offset=0x18, Reserved0[1] : address offset=0x1C*/
+	__vo uint32_t APB1RSTR; /*RCC APB1 peripheral reset register, address offset=0x20*/
+	__vo uint32_t APB2RSTR; /*RCC APB2 peripheral reset register, address offset=0x24*/
+	__vo uint32_t Reserved1[2]; /*Reserved1[0]: addr offset=0x28, Reserved1[1] : addr offset=0x2C*/
+	__vo uint32_t AHB1ENR; /*RCC AHB1 peripheral clock enable register, addr offset=0x30*/
+	__vo uint32_t AHB2ENR; /*RCC AHB2 peripheral clock enable register, addr offset=0x34*/
+	__vo uint32_t Reserved2[2]; /*Reserved2[0]: addr offset=0x38, Reserved2[1] : addr offset=0x3C*/
+	__vo uint32_t APB1ENR; /*RCC APB1 peripheral clock enable register, addr offset=0x40*/
+	__vo uint32_t APB2ENR; /*RCC APB2 peripheral clock enable register, addr offset=0x44*/
+	__vo uint32_t Reserved3[2]; /*Reserved3[0]: addr offset=0x48, Reserved3[1] : addr offset=0x4C*/
+	__vo uint32_t AHB1LPENR; /*RCC AHB1 peripheral clock enable in low power mode register, addr offset=0x50*/
+	__vo uint32_t AHB2LPENR; /*RCC AHB2 peripheral clock enable in low power mode register, addr offset=0x54*/
+	__vo uint32_t Reserved4[2]; /*Reserved4[0]: addr offset=0x58, Reserved4[1] : addr offset=0x5C*/
+	__vo uint32_t APB1LPENR; /*RCC APB1 peripheral clock enable in low power mode register, addr offset=0x60*/
+	__vo uint32_t APB2LPENR; /*RCC APB2 peripheral clock enabled in low power mode register, addr offset=0x64*/
+	__vo uint32_t Reserved5[2]; /*Reserved5[0]: addr offset=0x68, Reserved5[1] : addr offset=0x6C*/
+	__vo uint32_t BDCR; /*RCC Backup domain control register, addr offset=0x70*/
+	__vo uint32_t CSR; /*RCC clock control & status register, addr offset=0x74*/
+	__vo uint32_t Reserved6[2]; /*Reserved6[0]: addr offset=0x78, Reserved6[1] : addr offset=0x7C*/
+	__vo uint32_t SSCGR; /*RCC spread spectrum clock generation register, addr offset=0x80*/
+	__vo uint32_t PLLI2SCFGR; /*RCC PLLI2S configuration register, addr offset=0x84*/
+	__vo uint32_t Reserved7; /*addr offset=0x88*/
+	__vo uint32_t DCKCFGR; /*RCC Dedicated Clocks Configuration Register, addr offset=0x8C*/
+}RCC_RegDef_t;
+
+/*
+ * peripheral definitions (peripheral base addressed typecasted to xxx_RegDef_t)
+ * */
+
+/*
+ * peripheral definitions
  * */
 #define GPIOA		((GPIO_RegDef_t*)GPIOA_BASEADDR)
 #define GPIOB		((GPIO_RegDef_t*)GPIOB_BASEADDR)
@@ -94,5 +133,82 @@ typedef struct {
 #define GPIOD		((GPIO_RegDef_t*)GPIOD_BASEADDR)
 #define GPIOE		((GPIO_RegDef_t*)GPIOE_BASEADDR)
 #define GPIOH		((GPIO_RegDef_t*)GPIOH_BASEADDR)
+#define RCC		 	((RCC_RegDef_t*)RCC_BASEADDR)
 
+/*
+ * peripheral clock enable and disable definitions
+ * */
+/*
+ * Clock enable macros for GPIO
+ * */
+#define GPIOA_CLK_EN()		(RCC->AHB1ENR |= (1 << 0))
+#define GPIOB_CLK_EN()		(RCC->AHB1ENR |= (1 << 1))
+#define GPIOC_CLK_EN()		(RCC->AHB1ENR |= (1 << 2))
+#define GPIOD_CLK_EN()		(RCC->AHB1ENR |= (1 << 3))
+#define GPIOE_CLK_EN()		(RCC->AHB1ENR |= (1 << 4))
+#define GPIOH_CLK_EN()		(RCC->AHB1ENR |= (1 << 7))
+
+/*
+ * Clock enable macros for I2C
+ */
+#define I2C1_CLK_EN()		(RCC->APB1ENR |= (1 << 21))
+#define I2C2_CLK_EN()		(RCC->APB1ENR |= (1 << 22))
+#define I2C3_CLK_EN()		(RCC->APB1ENR |= (1 << 23))
+
+/*
+ * Clock enable macros for SPI
+ * */
+#define SPI1_CLK_EN()		(RCC->APB2ENR |= (1 << 12))
+#define SPI2_CLK_EN()		(RCC->APB1ENR |= (1 << 14))
+#define SPI3_CLK_EN()		(RCC->APB1ENR |= (1 << 15))
+#define SPI4_CLK_EN()		(RCC->APB2ENR |= (1 << 13))
+
+/*
+ * Clock enable marcos for USART
+ * */
+#define USART1_CLK_EN()		(RCC->APB2ENR |= (1 << 4))
+#define USART2_CLK_EN()		(RCC->APB1ENR |= (1 << 17))
+#define USART6_CLK_EN()		(RCC->APB2ENR |= (1 << 5))
+
+/*
+ * Clock enable macro for SYSCFG
+ * */
+#define SYSCFG_CLK_EN()		(RCC->APB2ENR |= (1 << 14)))
+
+/*
+ * Clock disable macros for GPIO
+ * */
+#define GPIOA_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 0))
+#define GPIOB_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 1))
+#define GPIOC_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 2))
+#define GPIOD_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 3))
+#define GPIOE_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 4))
+#define GPIOH_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 7))
+
+/*
+ * Clock disable macros for SPI
+ * */
+#define SPI1_CLK_EN()		(RCC->APB2ENR &= ~(1 << 12))
+#define SPI2_CLK_EN()		(RCC->APB1ENR &= ~(1 << 14))
+#define SPI3_CLK_EN()		(RCC->APB1ENR &= ~(1 << 15))
+#define SPI4_CLK_EN()		(RCC->APB2ENR &= ~(1 << 13))
+
+/*
+ * CLock disable macros for I2C
+ * */
+#define I2C1_CLK_EN()		(RCC->APB1ENR &= ~(1 << 21))
+#define I2C2_CLK_EN()		(RCC->APB1ENR &= ~(1 << 22))
+#define I2C3_CLK_EN()		(RCC->APB1ENR &= ~(1 << 23))
+
+/*
+ * CLock disable macros for USART
+ * */
+#define USART1_CLK_EN()		(RCC->APB2ENR &= ~(1 << 4))
+#define USART2_CLK_EN()		(RCC->APB1ENR &= ~(1 << 17))
+#define USART6_CLK_EN()		(RCC->APB2ENR &= ~(1 << 5))
+
+/*
+ * Clock disable macros for SYSCFG
+ * */
+#define SYSCFG_CLK_EN()		(RCC->APB2ENR &= ~(1 << 14)))
 #endif /* INC_STM32F401RE_H_ */
