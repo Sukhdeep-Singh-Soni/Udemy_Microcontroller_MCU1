@@ -1,0 +1,15 @@
+/*
+ * stm32f401re.h
+ *
+ *  Created on: Nov 24, 2024
+ *      Author: deep
+ */
+
+#ifndef INC_STM32F401RE_H_
+#define INC_STM32F401RE_H_
+
+#define FLASH_BASEADDR	0x08000000U
+#define SRAM_BASEADDR	0x20000000U //96KB
+#define ROM_BASEADDR	0x1FFF0000U
+
+#endif /* INC_STM32F401RE_H_ */
