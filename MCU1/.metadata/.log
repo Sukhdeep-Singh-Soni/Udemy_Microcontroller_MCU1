@@ -1580,3 +1580,6 @@ java.lang.NullPointerException: Cannot read the array length because "containers
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:840)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-24 10:48:37.606
+!MESSAGE Indexed 'stm32f401re_drivers' (2 sources, 53 headers) in 2.33 sec: 1,948 declarations; 2,834 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.042%)
