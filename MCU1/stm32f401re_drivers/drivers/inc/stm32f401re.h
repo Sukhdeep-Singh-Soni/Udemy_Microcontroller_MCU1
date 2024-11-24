@@ -178,37 +178,48 @@ typedef struct {
 /*
  * Clock disable macros for GPIO
  * */
-#define GPIOA_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 0))
-#define GPIOB_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 1))
-#define GPIOC_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 2))
-#define GPIOD_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 3))
-#define GPIOE_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 4))
-#define GPIOH_CLK_EN()		(RCC->AHB1ENR &= ~(1 << 7))
+#define GPIOA_CLK_DI()		(RCC->AHB1ENR &= ~(1 << 0))
+#define GPIOB_CLK_DI()		(RCC->AHB1ENR &= ~(1 << 1))
+#define GPIOC_CLK_DI()		(RCC->AHB1ENR &= ~(1 << 2))
+#define GPIOD_CLK_DI()		(RCC->AHB1ENR &= ~(1 << 3))
+#define GPIOE_CLK_DI()		(RCC->AHB1ENR &= ~(1 << 4))
+#define GPIOH_CLK_DI()		(RCC->AHB1ENR &= ~(1 << 7))
 
 /*
  * Clock disable macros for SPI
  * */
-#define SPI1_CLK_EN()		(RCC->APB2ENR &= ~(1 << 12))
-#define SPI2_CLK_EN()		(RCC->APB1ENR &= ~(1 << 14))
-#define SPI3_CLK_EN()		(RCC->APB1ENR &= ~(1 << 15))
-#define SPI4_CLK_EN()		(RCC->APB2ENR &= ~(1 << 13))
+#define SPI1_CLK_DI()		(RCC->APB2ENR &= ~(1 << 12))
+#define SPI2_CLK_DI()		(RCC->APB1ENR &= ~(1 << 14))
+#define SPI3_CLK_DI()		(RCC->APB1ENR &= ~(1 << 15))
+#define SPI4_CLK_DI()		(RCC->APB2ENR &= ~(1 << 13))
 
 /*
  * CLock disable macros for I2C
  * */
-#define I2C1_CLK_EN()		(RCC->APB1ENR &= ~(1 << 21))
-#define I2C2_CLK_EN()		(RCC->APB1ENR &= ~(1 << 22))
-#define I2C3_CLK_EN()		(RCC->APB1ENR &= ~(1 << 23))
+#define I2C1_CLK_DI()		(RCC->APB1ENR &= ~(1 << 21))
+#define I2C2_CLK_DI()		(RCC->APB1ENR &= ~(1 << 22))
+#define I2C3_CLK_DI()		(RCC->APB1ENR &= ~(1 << 23))
 
 /*
  * CLock disable macros for USART
  * */
-#define USART1_CLK_EN()		(RCC->APB2ENR &= ~(1 << 4))
-#define USART2_CLK_EN()		(RCC->APB1ENR &= ~(1 << 17))
-#define USART6_CLK_EN()		(RCC->APB2ENR &= ~(1 << 5))
+#define USART1_CLK_DI()		(RCC->APB2ENR &= ~(1 << 4))
+#define USART2_CLK_DI()		(RCC->APB1ENR &= ~(1 << 17))
+#define USART6_CLK_DI()		(RCC->APB2ENR &= ~(1 << 5))
 
 /*
  * Clock disable macros for SYSCFG
  * */
-#define SYSCFG_CLK_EN()		(RCC->APB2ENR &= ~(1 << 14)))
+#define SYSCFG_CLK_DI()		(RCC->APB2ENR &= ~(1 << 14)))
+
+/*
+ * Some miscellaneous macros
+ * */
+#define ENABLE				1
+#define DISABLE				0
+#define SET					ENABLE
+#define RESET				DISABLE
+#define GPIO_PIN_SET		SET
+#define GPIO_PIN_RESET		RESET
+
 #endif /* INC_STM32F401RE_H_ */
