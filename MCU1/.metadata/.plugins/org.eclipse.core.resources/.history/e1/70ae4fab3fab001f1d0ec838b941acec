@@ -117,79 +117,52 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
 }
 
 /*
- * @fn		-	GPIO_ReadFromInputPin
- * @brief	-	read from input data register of GPIO and returns the specified pin status
+ * @fn		-	GPIO_PCLKCtrl
+ * @brief	-	enables or disables the gpio peripheral clock
  * @param	-	base address of gpiox peripheral
- * @param	-	pin number to read status from
- * @ret		-	0 or 1
+ * @param	-	ENABLE or DISABLE macros
+ * @ret		-	none
  * @note	-	none
  * */
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-	uint8_t value;
 
-	value = (uint8_t)(((pGPIOx->IDR) >> PinNumber) & 0x00000001U);
-
-	return value;
 }
 
 /*
- * @fn		-	GPIO_ReadFromInputPort
- * @brief	-	read the whole IDR value
+ * @fn		-	GPIO_PCLKCtrl
+ * @brief	-	enables or disables the gpio peripheral clock
  * @param	-	base address of gpiox peripheral
- * @ret		-	16-bit value returning the status of 0/1 for each pin0-pin15
+ * @param	-	ENABLE or DISABLE macros
+ * @ret		-	none
  * @note	-	none
  * */
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx) {
-	uint16_t value;
 
-	value = (uint16_t)pGPIOx->IDR;
-
-	return value;
 }
 
 /*
- * @fn		-	GPIO_WriteToOutputPin
- * @brief	-	write to GPIO pin
+ * @fn		-	GPIO_PCLKCtrl
+ * @brief	-	enables or disables the gpio peripheral clock
  * @param	-	base address of gpiox peripheral
- * @param	-	value to write to pin 0 or 1
- * @param	-	gpio pin to write to
+ * @param	-	ENABLE or DISABLE macros
  * @ret		-	none
  * @note	-	none
  * */
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t Value, uint8_t PinNumber) {
-	if(Value == GPIO_PIN_SET) {
-		pGPIOx->ODR |= (1 << PinNumber);
-	} else {
-		pGPIOx->ODR &= ~(1 << PinNumber);
-	}
+
 }
 
 /*
- * @fn		-	GPIO_WriteToOutputPort
- * @brief	-	write to whole gpio output port
+ * @fn		-	GPIO_PCLKCtrl
+ * @brief	-	enables or disables the gpio peripheral clock
  * @param	-	base address of gpiox peripheral
- * @param	-	16-bit value to write to
+ * @param	-	ENABLE or DISABLE macros
  * @ret		-	none
  * @note	-	none
  * */
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value) {
 
-		pGPIOx->ODR = (uint16_t)Value;
 }
-
-/*
- * @fn		-	GPIO_TogglePin
- * @brief	-	toggle the pin specified of gpio
- * @param	-	base address of gpiox peripheral
- * @param	-	pin numebr to toggle
- * @ret		-	none
- * @note	-	none
- * */
-void GPIO_TogglePin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
-
-	pGPIOx->ODR ^= (1 << PinNumber);
-}
-
 
 /*
  * @fn		-	GPIO_PCLKCtrl

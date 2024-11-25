@@ -181,13 +181,12 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Value) {
  * @fn		-	GPIO_TogglePin
  * @brief	-	toggle the pin specified of gpio
  * @param	-	base address of gpiox peripheral
- * @param	-	pin numebr to toggle
+ * @param	-	16-bit value to write to
  * @ret		-	none
  * @note	-	none
  * */
 void GPIO_TogglePin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
 
-	pGPIOx->ODR ^= (1 << PinNumber);
 }
 
 
