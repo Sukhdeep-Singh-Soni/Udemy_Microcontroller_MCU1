@@ -99,3 +99,4 @@
 2024-11-24 10:48:36,434 [INFO] ApiDb:452 - User favorites MCUs=[]
 2024-11-24 10:48:36,453 [INFO] ApiDb:448 - Save user favorites file /home/deep/.stm32cubeide/favorites.boards.txt: 1 item(s)
 2024-11-24 10:48:36,453 [INFO] ApiDb:452 - User favorites Boards=[NUCLEO-F401RE]
+2024-11-24 19:26:41,505 [INFO] WebApp:189 - Connection lost

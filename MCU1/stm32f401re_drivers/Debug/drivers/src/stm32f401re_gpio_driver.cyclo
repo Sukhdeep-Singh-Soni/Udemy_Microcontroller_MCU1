@@ -1,9 +1,9 @@
 ../drivers/src/stm32f401re_gpio_driver.c:18:6:GPIO_PCLKCtrl	14
-../drivers/src/stm32f401re_gpio_driver.c:58:6:GPIO_Init	1
-../drivers/src/stm32f401re_gpio_driver.c:70:6:GPIO_DeInit	1
-../drivers/src/stm32f401re_gpio_driver.c:82:9:GPIO_ReadFromInputPin	1
-../drivers/src/stm32f401re_gpio_driver.c:94:10:GPIO_ReadFromInputPort	1
-../drivers/src/stm32f401re_gpio_driver.c:106:6:GPIO_WriteToOutputPin	1
-../drivers/src/stm32f401re_gpio_driver.c:118:6:GPIO_WriteToOutputPort	1
-../drivers/src/stm32f401re_gpio_driver.c:130:6:IRQHandling	1
-../drivers/src/stm32f401re_gpio_driver.c:142:6:IRQConfig	1
+../drivers/src/stm32f401re_gpio_driver.c:58:6:GPIO_Init	3
+../drivers/src/stm32f401re_gpio_driver.c:103:6:GPIO_DeInit	7
+../drivers/src/stm32f401re_gpio_driver.c:127:9:GPIO_ReadFromInputPin	1
+../drivers/src/stm32f401re_gpio_driver.c:139:10:GPIO_ReadFromInputPort	1
+../drivers/src/stm32f401re_gpio_driver.c:151:6:GPIO_WriteToOutputPin	1
+../drivers/src/stm32f401re_gpio_driver.c:163:6:GPIO_WriteToOutputPort	1
+../drivers/src/stm32f401re_gpio_driver.c:175:6:IRQHandling	1
+../drivers/src/stm32f401re_gpio_driver.c:187:6:IRQConfig	1
