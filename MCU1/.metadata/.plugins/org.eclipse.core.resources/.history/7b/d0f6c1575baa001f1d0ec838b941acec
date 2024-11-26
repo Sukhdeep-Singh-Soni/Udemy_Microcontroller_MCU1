@@ -1,0 +1,13 @@
+/*
+ * stm32f401re_gpio_driver.h
+ *
+ *  Created on: Nov 24, 2024
+ *      Author: deep
+ */
+
+#ifndef INC_STM32F401RE_GPIO_DRIVER_H_
+#define INC_STM32F401RE_GPIO_DRIVER_H_
+
+#include "stm32f401re.h"
+
+#endif /* INC_STM32F401RE_GPIO_DRIVER_H_ */

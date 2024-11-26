@@ -130,7 +130,8 @@ void GPIO_TogglePin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 /*
  * Interrupt configuration and Handling
  * */
-void IRQHandling(GPIO_RegDef_t *pGPIOx, uint8_t IRQNumber, uint8_t IRQPriority);
-void IRQConfig(uint8_t PinNumber);
+void GPIO_IRQHandling(uint8_t PinNumber);
+void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
+void GPIO_IRQPRiorityConfig(uint8_t IRQNumber, uint8_t IRQPriority);
 
 #endif /* INC_STM32F401RE_GPIO_DRIVER_H_ */

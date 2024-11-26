@@ -1,0 +1,38 @@
+/*
+ * stm32f401re.h
+ *
+ *  Created on: Nov 24, 2024
+ *      Author: deep
+ */
+
+#ifndef INC_STM32F401RE_H_
+#define INC_STM32F401RE_H_
+
+/*
+ * base address of various memory peripherals in the microcontroller
+ * note: reference taken from reference manual flash memory section
+ * */
+#define FLASH_BASEADDR	0x08000000U /*start address of flash memory*/
+#define SRAM_BASEADDR	0x20000000U /*start addr of SRAM - 96KB*/
+#define ROM_BASEADDR	0x1FFF0000U /*start addr of system memory*/
+
+/*
+ * base address of various bus domains of the microcontroller
+ * note: reference taken from uC reference manual
+ * */
+#define PERI_BASEADDR		0x40000000U /*uC peripheral start addr*/
+#define AHB1_BASEADDR		0x40020000U /*ahb1 bus peripheral start addr*/
+#define AHB2_BASEADDR		0x50000000U /*ahb2 bus peripheral start addr*/
+#define APB1_BASEADDR		PERI_BASEADDR /*apb1 bus peri atart addr*/
+#define APB2_BASEADDR		0x40010000U /*apb2 bus peri start addr*/
+
+/*
+ * base address of peripherals hanging on AHB1 bus
+ * took reference from uC reference manual
+ * */
+#define GPIOA_BASEADDR		(AHB1_BASEADDR + 0x0000U) /*GPIOA peri base addr, AHB1 base addr + offset*/
+#define GPIOB_BASEADDR		(AHB1_BASEADDR + 0x0400U) /*GPIOA peri base addr*/
+
+
+
+#endif /* INC_STM32F401RE_H_ */
