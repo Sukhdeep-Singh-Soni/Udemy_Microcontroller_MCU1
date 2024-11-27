@@ -66,6 +66,8 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 		temp = 0;
 	} else {
 		//interrupt mode
+		//first configure the pin as input state
+		//TODO
 		/*1. configure the rising or falling edge trigger based on configuration*/
 		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FALLING_EDGE) {
 			/*configure the falling edge trigger in EXIT FTSR register based on pin number*/
@@ -83,10 +85,12 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 			EXTI->FTSR |= (1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
 		}
 		/*2. configure the GPIO port select based in SYSCFG EXTICR registers*/
+		/*enable the SYSCFG clock*/
+		SYSCFG_CLK_EN();
 		uint32_t temp1, temp2;
 		temp1 = (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber) / 4; //index to EXTICR[temp1] array
 		temp2 = (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber) % 4; //position to shift to
-		uint8_t portcode = GPIO_PORT_TO_CODE(pGPIOHandle->pGPIOx);
+		uint32_t portcode = GPIO_PORT_TO_CODE(pGPIOHandle->pGPIOx);
 		temp = (portcode << (temp2 * 4));
 		SYSCFG->EXTICR[temp1] |= temp;
 		/*3. enable the interrupt delivery to NVIC via the EXTI IMR register*/
@@ -267,7 +271,7 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi) {
  * @ret		-	none
  * @note	-	none
  * */
-void GPIO_IRQPRiorityConfig(uint8_t IRQNumber, uint8_t IRQPriority) {
+void GPIO_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority) {
 	uint8_t iprx = IRQNumber / 4; /*which IPR to select IPR1..IPR59 each 32-bits with 8-bits for priority*/
 	uint8_t iprx_section = IRQNumber % 4; /*position/remainder to shift to in selected IPR*/
 	uint8_t shift_amount = (8 * iprx_section) + (8 - NVIC_PRIORITY_BITS_IMPLEMENTED);

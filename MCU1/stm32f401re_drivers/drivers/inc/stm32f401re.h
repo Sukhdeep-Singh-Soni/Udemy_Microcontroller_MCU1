@@ -42,6 +42,26 @@
 #define NVIC_PRIORITY_BITS_IMPLEMENTED		4
 
 /*
+ * NVIC priority values macros
+ * */
+#define NVIC_IRQ_PRIORITY0	0
+#define NVIC_IRQ_PRIORITY1	1
+#define NVIC_IRQ_PRIORITY2	2
+#define NVIC_IRQ_PRIORITY3	3
+#define NVIC_IRQ_PRIORITY4	4
+#define NVIC_IRQ_PRIORITY5	5
+#define NVIC_IRQ_PRIORITY6	6
+#define NVIC_IRQ_PRIORITY7	7
+#define NVIC_IRQ_PRIORITY8	8
+#define NVIC_IRQ_PRIORITY9	9
+#define NVIC_IRQ_PRIORITY10	10
+#define NVIC_IRQ_PRIORITY11	11
+#define NVIC_IRQ_PRIORITY12	12
+#define NVIC_IRQ_PRIORITY13	13
+#define NVIC_IRQ_PRIORITY14	14
+#define NVIC_IRQ_PRIORITY15	15
+
+/*
  * IRQ numbers of Interrupts(reference taken from vector table of uC)
  * will update with the growth of project
  * */
@@ -240,7 +260,7 @@ typedef struct {
 /*
  * Clock enable macro for SYSCFG
  * */
-#define SYSCFG_CLK_EN()		(RCC->APB2ENR |= (1 << 14)))
+#define SYSCFG_CLK_EN()		(RCC->APB2ENR |= (1 << 14))
 
 /*
  * Clock disable macros for GPIO
