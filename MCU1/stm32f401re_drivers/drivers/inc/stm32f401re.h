@@ -71,7 +71,11 @@
 #define IRQ_NO_EXTI3		9
 #define IRQ_NO_EXTI4		10
 #define IRQ_NO_EXTI9_5		23
+#define IRQ_NO_SPI1			35
+#define IRQ_NO_SPI2			36
 #define IRQ_NO_EXTI15_10	40
+#define IRQ_NO_SPI3			51
+#define IRQ_NO_SPI4			84
 
 /*
  * base address of various memory peripherals in the microcontroller
@@ -205,12 +209,28 @@ typedef struct {
 	__vo uint32_t Reserved[2]; /*Reserved[0] : address offset=0x18, Reserved[1] : address_offset=0x1C*/
 	__vo uint32_t CMPCR; /*Compensation cell control register, address offset=0x20*/
 }SYSCFG_RegDef_t;
+
+/*
+ * peripheral register definition structure of GPIO
+ * */
+typedef struct {
+	__vo uint32_t CR1; /*SPI control register 1, address offset=0x00*/
+	__vo uint32_t CR2; /*SPI control register 2, address offset=0x04*/
+	__vo uint32_t SR; /*SPI status register, address offset=0x08*/
+	__vo uint32_t DR; /*SPI data register, address offset=0x0C*/
+	__vo uint32_t CRCPR; /*SPI CRC polynomial register, address offset=0x10*/
+	__vo uint32_t RXCRCR; /*SPI RX CRC register, address offset=0x14*/
+	__vo uint32_t TXCRCR; /*SPI TX CRC register, address offset=0x18*/
+	__vo uint32_t I2SCFGR; /*SPI_I2S configuration register, address offset=0x1C*/
+	__vo uint32_t I2SPR; /*SPI_I2S prescaler register, address offset=0x20*/
+}SPI_RegDef_t;
+
 /*
  * peripheral definitions (peripheral base addressed typecasted to xxx_RegDef_t)
  * */
 
 /*
- * peripheral definitions
+ * peripheral definitions of GPIO
  * */
 #define GPIOA		((GPIO_RegDef_t*)GPIOA_BASEADDR)
 #define GPIOB		((GPIO_RegDef_t*)GPIOB_BASEADDR)
@@ -218,9 +238,29 @@ typedef struct {
 #define GPIOD		((GPIO_RegDef_t*)GPIOD_BASEADDR)
 #define GPIOE		((GPIO_RegDef_t*)GPIOE_BASEADDR)
 #define GPIOH		((GPIO_RegDef_t*)GPIOH_BASEADDR)
+
+/*
+ * peripheral definitions of RCC
+ * */
 #define RCC		 	((RCC_RegDef_t*)RCC_BASEADDR)
+
+/*
+ * peripheral definitions of EXIT
+ * */
 #define EXTI		((EXTI_RegDef_t*)EXTI_BASEADDR)
+
+/*
+ * peripheral definitions of SYSCFG
+ * */
 #define SYSCFG		((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
+
+/*
+ * peripheral definitions of SPI
+ * */
+#define SPI1		((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2		((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3		((SPI_RegDef_t*)SPI3_BASEADDR)
+#define SPI4		((SPI_RegDef_t*)SPI4_BASEADDR)
 
 /*
  * peripheral clock enable and disable definitions
@@ -308,6 +348,14 @@ typedef struct {
 #define GPIOD_RESET_REG()	do { (RCC->AHB1RSTR |= (1 << 3)); (RCC->AHB1RSTR &= ~(1 << 3)); }while(0)
 #define GPIOE_RESET_REG()	do { (RCC->AHB1RSTR |= (1 << 4)); (RCC->AHB1RSTR &= ~(1 << 4)); }while(0)
 #define GPIOH_RESET_REG()	do { (RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1 << 7)); }while(0)
+
+/*
+ * SPI reset macros
+ * */
+#define SPI1_RESET_REG()		do { (RCC->APB2RSTR) |= (1 << 12); (RCC->APB2RSTR) &= ~(1 << 12); }while(0)
+#define SPI2_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 14); (RCC->APB1RSTR) &= ~(1 << 14); }while(0)
+#define SPI3_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 15); (RCC->APB1RSTR) &= ~(1 << 15); }while(0)
+#define SPI4_RESET_REG()		do { (RCC->APB2RSTR) |= (1 << 13); (RCC->APB2RSTR) &= ~(1 << 13); }while(0)
 
 /*
  * GPIO port to EXTI code to put into EXTICR registers of STSCFG
