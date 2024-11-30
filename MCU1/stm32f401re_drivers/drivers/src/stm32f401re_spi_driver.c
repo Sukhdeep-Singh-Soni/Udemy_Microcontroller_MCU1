@@ -100,3 +100,74 @@ void SPI_DeIint(SPI_RegDef_t *pSPIx) {
 		SPI4_RESET_REG();
 	}
 }
+
+/*
+ * @fn		-	SPI_SendData
+ * @brief	-	send the data from SPI peripheral(polling mode)
+ * @param	-	SPI peripheral base address
+ * @param	-	pointer to Tx buffer
+ * @param	-	length number of bytes to transmit
+ * @ret		-	none
+ * @note	-	This is a blocking function
+ * */
+void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len) {
+	if(Len > 0) {
+		/*wait for TXE bit to set(transmit buffer empty)*/
+		while(SPI_GetFlagStatus(pSPIx, SPI_MASK_TXE) == FLAG_RESET);
+
+		/*check the DFF*/
+		if(pSPIx->CR1 & (1 << SPI_CR1_DFF)) {
+			/*16-bit data format*/
+			pSPIx->DR = *((uint16_t*)pTxBuffer);
+			Len =- 2;
+			(uint16_t*)pTxBuffer++;
+		} else {
+			/*8 bit frame format*/
+			pSPIx->DR = *pTxBuffer;
+			Len--;
+			pTxBuffer++;
+		}
+	}
+}
+
+/*
+ * @fn		-	SPI_DeIint
+ * @brief	-	reset the SPIx peripheral
+ * @param	-	SPI peripheral base address
+ * @ret		-	none
+ * @note	-	none
+ * */
+void SPI_ReadData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len) {
+
+}
+
+/*
+ * @fn		-	SPI_GetFlagStatus
+ * @brief	-	give the status of the specified flag bit in the SR register
+ * @param	-	SPI peripheral base address
+ * @param	-	SPI flag mask like for eg. TXE bit (1 << 1)
+ * @ret		-	1 if bit is set or 0 otherwise
+ * @note	-	Helping function
+ * */
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint8_t FlagName) {
+	if(pSPIx->SR & FlagName) {
+		return FLAG_SET;
+	}
+	return FLAG_RESET;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

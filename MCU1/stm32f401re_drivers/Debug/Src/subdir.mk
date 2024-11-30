@@ -5,17 +5,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/003_buttoninterrupt_internal.c \
+../Src/004_spi_tx_test.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c 
 
 OBJS += \
-./Src/003_buttoninterrupt_internal.o \
+./Src/004_spi_tx_test.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o 
 
 C_DEPS += \
-./Src/003_buttoninterrupt_internal.d \
+./Src/004_spi_tx_test.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d 
 
@@ -27,7 +27,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/003_buttoninterrupt_internal.cyclo ./Src/003_buttoninterrupt_internal.d ./Src/003_buttoninterrupt_internal.o ./Src/003_buttoninterrupt_internal.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/004_spi_tx_test.cyclo ./Src/004_spi_tx_test.d ./Src/004_spi_tx_test.o ./Src/004_spi_tx_test.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

@@ -81,6 +81,13 @@ typedef struct {
 #define SPI_SSM_DI	0 /*hardware slave mgmt enables(SSM disabled)*/
 
 /*
+ * SPI CR1 register masking bit definitions
+ * */
+#define SPI_MASK_TXE	(1 << SPI_SR_TXE)
+#define SPI_MASK_RXNE	(1 << SPI_SR_RXNE)
+#define SPI_MASK_BSY	(1 << SPI_SR_BSY)
+
+/*
  * ##################### API's provided by this driver ###############################
  * */
 
@@ -107,6 +114,11 @@ void SPI_ReadData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
 void GPIO_IRQHandling(SPI_Handle_t *pSPIHandle);
 void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
 void GPIO_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
+
+/*
+ * Some other miscellaneous SPI api's
+ * */
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint8_t FlagName);
 
 
 #endif /* INC_STM32F401RE_SPI_DRIVER_H_ */
