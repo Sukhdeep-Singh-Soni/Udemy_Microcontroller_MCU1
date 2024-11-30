@@ -366,6 +366,52 @@ typedef struct {
 									(x == GPIOD) ? 3 :\
 									(x == GPIOE) ? 4 :\
 									(x == GPIOH) ? 7 : 0
+/*
+ * #######################################################################################
+ * 						Bit Definition macros for SPI peripheral
+ * #######################################################################################
+ * */
+/*
+ * Bit definitions SPI_CR1
+ * */
+#define SPI_CR1_CPHA		0 /*clock polarity*/
+#define SPI_CR1_CPOL		1 /*clock phase*/
+#define SPI_CR1_MSTR		2 /*master/slave*/
+#define SPI_CR1_BR			3 /*baud rate*/
+#define SPI_CR1_SPE			6 /*spi enable*/
+#define SPI_CR1_LBS_FIRST	7 /*frame format lsb first or msb first*/
+#define SPI_CR1_SSI			8 /*internal slave select*/
+#define SPI_CR1_SSM			9 /*software slave mgmt*/
+#define SPI_CR1_RXONLY		10 /*receive only*/
+#define SPI_CR1_DFF			11 /*data frame format*/
+#define SPI_CR1_CRCNEXT		12 /*CRC transfer next*/
+#define SPI_CR1_CRCEN		13 /*Hardware CRC calculation enable*/
+#define SPI_CR1_BIDIOE		14 /*Output enable in bidirectional mode*/
+#define SPI_CR1_BIDIMODE	15 /*Bidirectional data mode enable*/
+
+/*
+ * Bit definitions SPI_CR2
+ * */
+#define SPI_CR2_RXDMAEN		0 /*Rx buffer DMA enable*/
+#define SPI_CR2_TXDMAEN		1 /*Tx buffer DMA enable*/
+#define SPI_CR2_SSOE		2 /*SS output enable*/
+#define SPI_CR2_FRF			4 /*Frame format*/
+#define SPI_CR2_ERRIE		5 /*Error interrupt enable*/
+#define SPI_CR2_RXNEIE		6 /*RX buffer not empty interrupt enable*/
+#define SPI_CR2_TXEIE		7 /*Tx buffer empty interrupt enable*/
+
+/*
+ * Bit Definitions SPI_SR
+ * */
+#define SPI_SR_RXNE		0 /*Receive buffer not empty*/
+#define SPI_SR_TXE		1 /*Transmit buffer empty*/
+#define SPI_SR_CHSIDE	2 /*Channel side*/
+#define SPI_SR_UDR		3 /*Underrun flag*/
+#define SPI_SR_CRCERR	4 /*CRC error flag*/
+#define SPI_SR_MODF		5 /*Mode fault*/
+#define SPI_SR_OVR		6 /*Overrun flag*/
+#define SPI_SR_BSY		7 /*Busy flag*/
+#define SPI_SR_FRE		8 /*Frame format error*/
 
 /*
  * Some miscellaneous macros
