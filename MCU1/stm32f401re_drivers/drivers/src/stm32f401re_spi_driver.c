@@ -48,7 +48,8 @@ void SPI_ClkCtrl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 void SPI_Init(SPI_Handle_t *pSPIHandle) {
 	/*configure SPI CR1 register*/
 	uint32_t tempreg = 0;
-
+	/*enable spi clock*/
+	SPI_ClkCtrl(pSPIHandle->pSPIx, ENABLE);
 	/*1. configure the DeviceMode*/
 	if(pSPIHandle->SPIConfig.SPI_DeviceMode == SPI_MODE_MASTER) {
 		tempreg |= (1 << SPI_CR1_MSTR); /*set*/
@@ -111,7 +112,7 @@ void SPI_DeIint(SPI_RegDef_t *pSPIx) {
  * @note	-	This is a blocking function
  * */
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len) {
-	if(Len > 0) {
+	while(Len > 0) {
 		/*wait for TXE bit to set(transmit buffer empty)*/
 		while(SPI_GetFlagStatus(pSPIx, SPI_MASK_TXE) == FLAG_RESET);
 
@@ -156,7 +157,21 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint8_t FlagName) {
 	return FLAG_RESET;
 }
 
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+	if(EnorDi == ENABLE) {
+		pSPIx->CR1 |= (1 << SPI_CR1_SPE); /*enable the peripheral*/
+	} else {
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE); /*disable the peripheral*/
+	}
+}
 
+void SPI_SSIControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
+	if(EnorDi == ENABLE) {
+		pSPIx->CR1 |= (1 << SPI_CR1_SSI); /*enable the peripheral*/
+	} else {
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SSI); /*disable the peripheral*/
+	}
+}
 
 
 

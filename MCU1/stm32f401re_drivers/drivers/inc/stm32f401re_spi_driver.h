@@ -111,14 +111,16 @@ void SPI_ReadData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
 /*
  * IRQ Handling and Interrupt config
  * */
-void GPIO_IRQHandling(SPI_Handle_t *pSPIHandle);
-void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
-void GPIO_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
+void SPI_IRQHandling(SPI_Handle_t *pSPIHandle);
+void SPI_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
+void SPI_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
 
 /*
  * Some other miscellaneous SPI api's
  * */
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint8_t FlagName);
+void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+void SPI_SSIControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
 
 #endif /* INC_STM32F401RE_SPI_DRIVER_H_ */

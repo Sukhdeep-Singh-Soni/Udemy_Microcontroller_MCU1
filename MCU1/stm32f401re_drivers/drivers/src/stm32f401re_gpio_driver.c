@@ -57,6 +57,8 @@ void GPIO_PCLKCtrl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
  * */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 	uint32_t temp = 0;
+	/*enable the gpio clock*/
+	GPIO_PCLKCtrl(pGPIOHandle->pGPIOx, ENABLE);
 	/*1. configure the gpio mode*/
 	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG) {
 		//non interrupt mode
