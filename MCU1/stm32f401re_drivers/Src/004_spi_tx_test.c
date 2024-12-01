@@ -80,7 +80,13 @@ int main(void) {
 	/*send data*/
 	SPI_SendData(SPI1, (uint8_t*)user_data, strlen(user_data));
 
+	/*disabling peripheral abruptly without thinking about whether whole data is transmitted or not*/
+	/*check if SPI peripheral is busy*/
+	while(SPI_GetFlagStatus(SPI1, SPI_MASK_BSY));
+
 	/*disable the SPI peripheral*/
 	SPI_PeripheralControl(SPI1, DISABLE);
+	SPI_DeIint(SPI1);
 
+	while(1);
 }

@@ -139,7 +139,23 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len) {
  * @note	-	none
  * */
 void SPI_ReadData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len) {
+	while(Len > 0) {
+		/*wait for RXNE bit to set(transmit buffer empty)*/
+		while(SPI_GetFlagStatus(pSPIx, SPI_MASK_RXNE) == FLAG_RESET);
 
+		/*check the DFF*/
+		if(pSPIx->CR1 & (1 << SPI_CR1_DFF)) {
+			/*16-bit data format, get data from DR into RXBuffer*/
+			*((uint16_t*)pRxBuffer) = pSPIx->DR;
+			Len =- 2;
+			(uint16_t*)pRxBuffer++;
+		} else {
+			/*8 bit frame format*/
+			*pRxBuffer = pSPIx->DR;
+			Len--;
+			pRxBuffer++;
+		}
+	}
 }
 
 /*
