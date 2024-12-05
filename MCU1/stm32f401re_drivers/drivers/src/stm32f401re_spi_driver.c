@@ -132,9 +132,11 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len) {
 }
 
 /*
- * @fn		-	SPI_DeIint
- * @brief	-	reset the SPIx peripheral
+ * @fn		-	SPI_ReadData
+ * @brief	-	receive data from SPI peripheral
  * @param	-	SPI peripheral base address
+ * @param	-	address of buffer to read data into
+ * @param	-	length amount of data to read
  * @ret		-	none
  * @note	-	none
  * */
@@ -173,6 +175,14 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint8_t FlagName) {
 	return FLAG_RESET;
 }
 
+/*
+ * @fn		-	SPI_PeripheralControl
+ * @brief	-	enable or disable SPIx peripheral
+ * @param	-	SPI peripheral base address
+ * @param	-	whether to enable or disable the peripheral
+ * @ret		-	none
+ * @note	-	none
+ * */
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if(EnorDi == ENABLE) {
 		pSPIx->CR1 |= (1 << SPI_CR1_SPE); /*enable the peripheral*/
@@ -181,12 +191,53 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	}
 }
 
+/*
+ * @fn		-	SPI_SSIControl
+ * @brief	-	enable or disable the spi SSI bit if SSM is selected
+ * @param	-	SPI peripheral base address
+ * @param	-	whether to enable or disable SSI bit
+ * @ret		-	none
+ * @note	-	none
+ * */
 void SPI_SSIControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi) {
 	if(EnorDi == ENABLE) {
-		pSPIx->CR1 |= (1 << SPI_CR1_SSI); /*enable the peripheral*/
+		pSPIx->CR1 |= (1 << SPI_CR1_SSI);
 	} else {
-		pSPIx->CR1 &= ~(1 << SPI_CR1_SSI); /*disable the peripheral*/
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SSI);
 	}
+}
+
+/*
+ * @fn		-	SPI_IRQInterruptConfig
+ * @brief	-	enable or disable SPI interrupt delivery at NVIC side
+ * @param	-	IRQ number for the SPI interrupt
+ * @param	-	to enable or disable the interrupt
+ * @ret		-	none
+ * @note	-	NVIC_ISER0 and NVIC_ICER0 are base addresses of interrupt set enable register and interrupt clear enable register respectively
+ * */
+void SPI_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi) {
+	uint8_t iserx = IRQNumber / 32;
+	uint8_t iserx_section = IRQNumber % 32;
+	if(EnorDi == ENABLE) {
+		*(NVIC_ISER0 + iserx) |= (1 << iserx_section); /*set interrupt enable bit in NVIC*/
+	} else {
+		*(NVIC_ICER0 + iserx) &= ~(1 << iserx_section); /*clear interrupt enable bit*/
+	}
+}
+
+/*
+ * @fn		-	SPI_IRQPRiorityConfig
+ * @brief	-	configures SPI interrupt prioriy in one of the NVIC priority registers
+ * @param	-	IRQ number for the SPI peripheral connected to NVIC
+ * @param	-	IRQ priority to configure for the interrupt
+ * @ret		-	none
+ * @note	-	none
+ * */
+void SPI_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority) {
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprx_section = IRQNumber % 4;
+	uint8_t shift_amt = (iprx_section * 8) + (8 - NVIC_PRIORITY_BITS_IMPLEMENTED);
+	*(NVIC_IPR_BASEADDR + iprx) |= (IRQPriority << shift_amt);
 }
 
 
