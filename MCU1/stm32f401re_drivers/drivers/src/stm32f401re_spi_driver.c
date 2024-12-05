@@ -240,6 +240,63 @@ void SPI_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority) {
 	*(NVIC_IPR_BASEADDR + iprx) |= (IRQPriority << shift_amt);
 }
 
+/*
+ * @fn		-	SPI_SendDataIT
+ * @brief	-	send SPI data in interrupt mode
+ * @param	-	pointer to SPI handle structure
+ * @param	-	pointer to transmit buffer
+ * @param	-	length amount to transmit
+ * @ret		-	status of the SPI peripheral
+ * @note	-	This is a non-blocking function
+ * */
+uint8_t SPI_SendDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Len) {
+	uint8_t state = pSPIHandle->TxState;
+
+	if(state != SPI_BUSY_IN_TX) {
+		/*1.Save the Tx buffer address and length info in some globel variables*/
+		pSPIHandle->TxLen = Len;
+		pSPIHandle->pTxBuffer = pTxBuffer;
+
+		/*2. Change state of SPI peripheral to busy in Tx
+		 * so that no other code can take over SPI peripheral until transmission is over*/
+		pSPIHandle->TxState = SPI_BUSY_IN_TX;
+
+		/*3. Enable the SPI TXEIE control bit to get interrupt when TXE bit is set in status register*/
+		pSPIHandle->pSPIx->CR2 |= (1 << SPI_CR2_TXEIE);
+
+		/*4. The DR register value update will happen in SPI interrupt handler */
+	}
+	return state;
+}
+
+/*
+ * @fn		-	SPI_ReadDataIT
+ * @brief	-	receive data from SPI peripheral in interrupt mode
+ * @param	-	pointer to SPI handle structure
+ * @param	-	pointer to reveice buffer
+ * @param	-	length amount to read
+ * @ret		-	status of SPI reception
+ * @note	-	This is a non-blocking function
+ * */
+uint8_t SPI_ReadDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Len) {
+	uint8_t state = pSPIHandle->RxState;
+
+	if(state != SPI_BUSY_IN_RX) {
+		/*1.Save the Rx buffer address and length info in some globel variables*/
+		pSPIHandle->RxLen = Len;
+		pSPIHandle->pRxBuffer = pRxBuffer;
+
+		/*2. Change state of SPI peripheral to busy in Rx
+		 * so that no other code can take over SPI peripheral until reception is over*/
+		pSPIHandle->RxState = SPI_BUSY_IN_RX;
+
+		/*3. Enable the SPI RXNEIE control bit to get interrupt when RXNE bit is set in status register*/
+		pSPIHandle->pSPIx->CR2 |= (1 << SPI_CR2_RXNEIE);
+
+		/*4. The DR register value update will happen in SPI interrupt handler */
+	}
+	return state;
+}
 
 
 
