@@ -9,6 +9,7 @@
 #define INC_STM32F401RE_SPI_DRIVER_H_
 
 #include "stm32f401re.h"
+#include <stddef.h>
 
 /*
  * SPI peripheral configuration structure
@@ -101,6 +102,14 @@ typedef struct {
 #define SPI_BUSY_IN_TX	2
 
 /*
+ * @SPIEvent
+ * possible SPI application events
+ * */
+#define SPI_EVENT_TX_CMPLT	1 /*transmit complete*/
+#define SPI_EVENT_RX_CMPLT	2 /*receive complete*/
+#define SPI_EVENT_OVR_ERR	3 /*overrun error*/
+
+/*
  * ##################### API's provided by this driver ###############################
  * */
 
@@ -137,6 +146,9 @@ void SPI_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint8_t FlagName);
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 void SPI_SSIControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
-
+void SPI_ApplicationEventCallback(SPI_Handle_t *pSPIHandle, uint8_t SPIEvent); /*SPIEvent from @SPIEvent*/
+void SPI_ClearOVRError(SPI_RegDef_t *pSPIx);
+void SPI_CloseTransmission(SPI_Handle_t *pSPIHandle);
+void SPI_CloseReception(SPI_Handle_t *pSPIHandle);
 
 #endif /* INC_STM32F401RE_SPI_DRIVER_H_ */
