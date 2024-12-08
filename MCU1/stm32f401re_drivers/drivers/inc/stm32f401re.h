@@ -211,7 +211,7 @@ typedef struct {
 }SYSCFG_RegDef_t;
 
 /*
- * peripheral register definition structure of GPIO
+ * peripheral register definition structure of SPI
  * */
 typedef struct {
 	__vo uint32_t CR1; /*SPI control register 1, address offset=0x00*/
@@ -224,6 +224,22 @@ typedef struct {
 	__vo uint32_t I2SCFGR; /*SPI_I2S configuration register, address offset=0x1C*/
 	__vo uint32_t I2SPR; /*SPI_I2S prescaler register, address offset=0x20*/
 }SPI_RegDef_t;
+
+/*
+ * peripheral register definition structure of I2C
+ * */
+typedef struct {
+	__vo uint32_t CR1; /*I 2 C Control register 1, address offset=0x00*/
+	__vo uint32_t CR2; /*I 2 C Control register 2, address offset=0x04*/
+	__vo uint32_t OAR1; /*I 2 C Own address register 1, address offset=0x08*/
+	__vo uint32_t OAR2; /*I 2 C Own address register 2, offset=0x0C*/
+	__vo uint32_t DR; /*I 2 C Data register, address offset=0x10*/
+	__vo uint32_t SR1; /*I 2 C Status register 1, address offset=0x14*/
+	__vo uint32_t SR2; /*I 2 C Status register 2, address offset=0x18*/
+	__vo uint32_t CCR; /*I 2 C Clock control register, address offset=0x1C*/
+	__vo uint32_t TRISE; /*I 2 C TRISE register, address offset=0x20*/
+	__vo uint32_t FLTR; /*I 2 C FLTR register, address offset=0x24*/
+}I2C_RegDef_t;
 
 /*
  * peripheral definitions (peripheral base addressed typecasted to xxx_RegDef_t)
@@ -261,6 +277,13 @@ typedef struct {
 #define SPI2		((SPI_RegDef_t*)SPI2_BASEADDR)
 #define SPI3		((SPI_RegDef_t*)SPI3_BASEADDR)
 #define SPI4		((SPI_RegDef_t*)SPI4_BASEADDR)
+
+/*
+ * peripheral definitions of I2C
+ * */
+#define I2C1		((I2C_RegDef_t*)I2C1_BASEADDR)
+#define I2C2		((I2C_RegDef_t*)I2C2_BASEADDR)
+#define I2C3		((I2C_RegDef_t*)I2C3_BASEADDR)
 
 /*
  * peripheral clock enable and disable definitions
@@ -358,6 +381,13 @@ typedef struct {
 #define SPI4_RESET_REG()		do { (RCC->APB2RSTR) |= (1 << 13); (RCC->APB2RSTR) &= ~(1 << 13); }while(0)
 
 /*
+ * I2C reset macros
+ * */
+#define I2C1_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 21); (RCC->APB2RSTR) &= ~(1 << 21); }while(0)
+#define I2C2_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 22); (RCC->APB2RSTR) &= ~(1 << 22); }while(0)
+#define I2C3_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 23); (RCC->APB2RSTR) &= ~(1 << 23); }while(0)
+
+/*
  * GPIO port to EXTI code to put into EXTICR registers of STSCFG
  * */
 #define GPIO_PORT_TO_CODE(x)		(x == GPIOA) ? 0 :\
@@ -412,6 +442,76 @@ typedef struct {
 #define SPI_SR_OVR		6 /*Overrun flag*/
 #define SPI_SR_BSY		7 /*Busy flag*/
 #define SPI_SR_FRE		8 /*Frame format error*/
+
+/*
+ * #######################################################################################
+ * 						Bit Definition macros for I2C peripheral
+ * #######################################################################################
+ * */
+/*
+ * Bit definitions I2C_CR1
+ * */
+#define I2C_CR1_PE			0
+#define I2C_CR1_SMBUS		1
+#define I2C_CR1_SMBTYPE		3
+#define I2C_CR1_ENARP		4
+#define I2C_CR1_ENPEC		5
+#define I2C_CR1_ENGC		6
+#define I2C_CR1_NOSTRETCH	7
+#define I2C_CR1_START		8
+#define I2C_CR1_STOP		9
+#define I2C_CR1_ACK			10
+#define I2C_CR1_POS			11
+#define I2C_CR1_PEC			12
+#define I2C_CR1_ALERT		13
+#define I2C_CR1_SWRST		15
+
+/*
+ * Bit definitions I2C_CR2
+ * */
+#define I2C_CR2_FREQ		0
+#define I2C_CR2_ITERREN		8
+#define I2C_CR2_ITEVTEN		9
+#define I2C_CR2_ITBUFEN		10
+#define I2C_CR2_DMAEN		11
+#define I2C_CR2_LAST		12
+
+/*
+ * Bit definitions I2C_SR1
+ * */
+#define I2C_SR1_SB			0
+#define I2C_SR1_ADDR		1
+#define I2C_SR1_BTF			2
+#define I2C_SR1_ADD10		3
+#define I2C_SR1_STOPF		4
+#define I2C_SR1_RxNE		6
+#define I2C_SR1_TxE			7
+#define I2C_SR1_BERR		8
+#define I2C_SR1_ARLO		9
+#define I2C_SR1_AF			10
+#define I2C_SR1_OVR			11
+#define I2C_SR1_PECERR		12
+#define I2C_SR1_TIMEOUT		14
+#define I2C_SR1_SMBALERT	15
+
+/*
+ * Bit definitions I2C_SR2
+ * */
+#define I2C_SR2_MSL			0
+#define I2C_SR2_BUSY		1
+#define I2C_SR2_TRA			2
+#define I2C_SR2_GENCALL		4
+#define I2C_SR2_SMBDEFAUT	5
+#define I2C_SR2_SMBHOST		6
+#define I2C_SR2_DUALF		7
+#define I2C_SR2_PEC			8
+
+/*
+ * Bit definitions I2C_CCR
+ * */
+#define I2C_CCR_CCR		0
+#define I2C_CCR_DUTY	14
+#define I2C_CCR_F_S		15
 
 /*
  * Some miscellaneous macros
