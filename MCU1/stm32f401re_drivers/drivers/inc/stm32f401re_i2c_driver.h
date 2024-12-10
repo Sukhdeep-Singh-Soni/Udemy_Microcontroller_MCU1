@@ -48,6 +48,28 @@ typedef struct {
 }I2C_Handle_t;
 
 /*
+ * I2C SR1 and SR2 register masking bit definitions
+ * */
+#define I2C_MASK_SB			(1 << I2C_SR1_SB)
+#define I2C_MASK_ADDR		(1 << I2C_SR1_ADDR)
+#define I2C_MASK_BTF		(1 << I2C_SR1_BTF)
+#define I2C_MASK_STOPF		(1 << I2C_SR1_STOPF)
+#define I2C_MASK_RxNE		(1 << I2C_SR1_RxNEF)
+#define I2C_MASK_TxE		(1 << I2C_SR1_TxE)
+#define I2C_MASK_BERR		(1 << I2C_SR1_BERR)
+#define I2C_MASK_ARLO		(1 << I2C_SR1_ARLO)
+#define I2C_MASK_AF			(1 << I2C_SR1_AF)
+#define I2C_MASK_OVR		(1 << I2C_SR1_OVR)
+#define I2C_MASK_TIMEOUT	(1 << I2C_SR1_TIMEOUT)
+#define I2C_MASK_MSL		(1 << I2C_SR1_MSL)
+#define I2C_MASK_BUSY		(1 << I2C_SR1_BUSY)
+#define I2C_MASK_TRA		(1 << I2C_SR1_TRA
+#define I2C_MASK_DUALF		(1 << I2C_SR1_DUALF)
+
+
+
+
+/*
  * ##################### API's provided by this driver ###############################
  * */
 
@@ -65,7 +87,7 @@ void I2C_DeIint(I2C_RegDef_t *pI2Cx);
 /*
  * I2C Tx and Rx
  * */
-
+void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t len, uint8_t SlaveAddr);
 
 /*
  * IRQ Handling and Interrupt config
@@ -76,10 +98,12 @@ void I2C_IRQPRiorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
 /*
  * Some other miscellaneous I2C api's
  * */
-uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint8_t FlagName);
+uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pSPIx, uint8_t FlagName);
 void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
 void I2C_ApplicationEventCallback(I2C_Handle_t *pI2CHandle, uint8_t I2CEvent); /*I2CEvent from @I2CEvent*/
-
-
+void I2C_GenerateSTOPCondition(I2C_RegDef_t *pI2Cx);
+void I2C_ClearADDRFlag(I2C_RegDef_t *pI2Cx);
+void I2C_ExecuteAddressPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
+static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
 
 #endif /* INC_STM32F401RE_I2C_DRIVER_H_ */
