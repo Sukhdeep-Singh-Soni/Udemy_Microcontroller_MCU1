@@ -54,7 +54,7 @@ typedef struct {
 #define I2C_MASK_ADDR		(1 << I2C_SR1_ADDR)
 #define I2C_MASK_BTF		(1 << I2C_SR1_BTF)
 #define I2C_MASK_STOPF		(1 << I2C_SR1_STOPF)
-#define I2C_MASK_RxNE		(1 << I2C_SR1_RxNEF)
+#define I2C_MASK_RxNE		(1 << I2C_SR1_RxNE)
 #define I2C_MASK_TxE		(1 << I2C_SR1_TxE)
 #define I2C_MASK_BERR		(1 << I2C_SR1_BERR)
 #define I2C_MASK_ARLO		(1 << I2C_SR1_ARLO)
@@ -67,7 +67,11 @@ typedef struct {
 #define I2C_MASK_DUALF		(1 << I2C_SR1_DUALF)
 
 
-
+/*
+ * I2C repeated start macros
+ * */
+#define I2C_ENABLE_SR		RESET
+#define I2C_DISABLE_SR		SET
 
 /*
  * ##################### API's provided by this driver ###############################
@@ -88,6 +92,7 @@ void I2C_DeIint(I2C_RegDef_t *pI2Cx);
  * I2C Tx and Rx
  * */
 void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t len, uint8_t SlaveAddr);
+void I2C_MasterReceiveData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t len, uint8_t SlaveAddr);
 
 /*
  * IRQ Handling and Interrupt config
@@ -103,7 +108,9 @@ void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
 void I2C_ApplicationEventCallback(I2C_Handle_t *pI2CHandle, uint8_t I2CEvent); /*I2CEvent from @I2CEvent*/
 void I2C_GenerateSTOPCondition(I2C_RegDef_t *pI2Cx);
 void I2C_ClearADDRFlag(I2C_RegDef_t *pI2Cx);
-void I2C_ExecuteAddressPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
+void I2C_ExecuteAddressPhaseWrite(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
 static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
+void I2C_ExecuteAddressPhaseRead(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
+void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint8_t EnorDi);
 
 #endif /* INC_STM32F401RE_I2C_DRIVER_H_ */
