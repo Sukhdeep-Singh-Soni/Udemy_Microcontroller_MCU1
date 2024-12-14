@@ -369,3 +369,12 @@ void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint8_t EnorDi) {
 	}
 }
 
+uint8_t I2C_MasterSendDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint32_t len, uint8_t SlaveAddr) {
+
+}
+
+uint8_t I2C_MasterReceiveDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint32_t len, uint8_t SlaveAddr) {
+
+}
+
+
