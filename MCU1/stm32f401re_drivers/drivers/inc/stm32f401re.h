@@ -248,6 +248,19 @@ typedef struct {
 }I2C_RegDef_t;
 
 /*
+ * peripheral register definition structure of USART
+ * */
+typedef struct {
+	__vo uint32_t SR; /*Status register, address offset=0x00*/
+	__vo uint32_t DR; /*Data register, address offset=0x04*/
+	__vo uint32_t BRR; /*Baud rate register, address offset=0x08*/
+	__vo uint32_t CR1; /*Control register 1, offset=0x0C*/
+	__vo uint32_t CR2; /*Control register 2, address offset=0x10*/
+	__vo uint32_t CR3; /*Control register 3, address offset=0x14*/
+	__vo uint32_t GTPR; /*Guard time and prescaler register, address offset=0x18*/
+}USART_RegDef_t;
+
+/*
  * peripheral definitions (peripheral base addressed typecasted to xxx_RegDef_t)
  * */
 
@@ -290,6 +303,13 @@ typedef struct {
 #define I2C1		((I2C_RegDef_t*)I2C1_BASEADDR)
 #define I2C2		((I2C_RegDef_t*)I2C2_BASEADDR)
 #define I2C3		((I2C_RegDef_t*)I2C3_BASEADDR)
+
+/*
+ * peripheral definitions of USART
+ * */
+#define USART1		((USART_RegDef_t*)USART1_BASEADDR)
+#define USART2		((USART_RegDef_t*)USART2_BASEADDR)
+#define USART6		((USART_RegDef_t*)USART6_BASEADDR)
 
 /*
  * peripheral clock enable and disable definitions
@@ -389,9 +409,16 @@ typedef struct {
 /*
  * I2C reset macros
  * */
-#define I2C1_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 21); (RCC->APB2RSTR) &= ~(1 << 21); }while(0)
-#define I2C2_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 22); (RCC->APB2RSTR) &= ~(1 << 22); }while(0)
-#define I2C3_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 23); (RCC->APB2RSTR) &= ~(1 << 23); }while(0)
+#define I2C1_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 21); (RCC->APB1RSTR) &= ~(1 << 21); }while(0)
+#define I2C2_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 22); (RCC->APB1RSTR) &= ~(1 << 22); }while(0)
+#define I2C3_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 23); (RCC->APB1RSTR) &= ~(1 << 23); }while(0)
+
+/*
+ * USART reset macros
+ * */
+#define USART1_RESET_REG()		do { (RCC->APB2RSTR) |= (1 << 4); (RCC->APB2RSTR) &= ~(1 << 4); }while(0)
+#define USART2_RESET_REG()		do { (RCC->APB1RSTR) |= (1 << 17); (RCC->APB1RSTR) &= ~(1 << 17); }while(0)
+#define USART6_RESET_REG()		do { (RCC->APB2RSTR) |= (1 << 5); (RCC->APB2RSTR) &= ~(1 << 5); }while(0)
 
 /*
  * GPIO port to EXTI code to put into EXTICR registers of STSCFG
@@ -518,6 +545,78 @@ typedef struct {
 #define I2C_CCR_CCR		0
 #define I2C_CCR_DUTY	14
 #define I2C_CCR_F_S		15
+
+/*
+ * #######################################################################################
+ * 						Bit Definition macros for USART peripheral
+ * #######################################################################################
+ * */
+/*
+ * Bit definitions USART_SR
+ * */
+#define USART_SR_PE		0
+#define USART_SR_FE		1
+#define USART_SR_NF		2
+#define USART_SR_ORE	3
+#define USART_SR_IDLE	4
+#define USART_SR_RXNE	5
+#define USART_SR_TC		6
+#define USART_SR_TXE	7
+#define USART_SR_LBD	8
+#define USART_SR_CTS	9
+
+/*
+ * Bit definitions USART_BRR
+ * */
+#define USART_BRR_DIV_FRACTION	0
+#define USART_BRR_DIV_MANTISSA	4
+
+/*
+ * Bit definitions USART_CR1
+ * */
+#define USART_CR1_SBK		0
+#define USART_CR1_RWU		1
+#define USART_CR1_RE		2
+#define USART_CR1_TE		3
+#define USART_CR1_IDLEIE	4
+#define USART_CR1_RXNEIE	5
+#define USART_CR1_TCIE		6
+#define USART_CR1_TXEIE		7
+#define USART_CR1_PEIE		8
+#define USART_CR1_PS		9
+#define USART_CR1_PCE		10
+#define USART_CR1_WAKE		11
+#define USART_CR1_M			12
+#define USART_CR1_UE		13
+#define USART_CR1_OVER8		15
+
+/*
+ * Bit definitions USART_CR2
+ * */
+#define USART_CR2_ADD		0
+#define USART_CR2_LBDL		5
+#define USART_CR2_LBDIE		6
+#define USART_CR2_LBCL		8
+#define USART_CR2_CPHA		9
+#define USART_CR2_CPOL		10
+#define USART_CR2_CLKEN		11
+#define USART_CR2_STOP		12
+#define USART_CR2_LINEN		14
+/*
+ * Bit definitions USART_CR3
+ * */
+#define USART_CR3_EIE		0
+#define USART_CR3_IREN		1
+#define USART_CR3_IRLP		2
+#define USART_CR3_HDSEL		3
+#define USART_CR3_NACK		4
+#define USART_CR3_SCEN		5
+#define USART_CR3_DMAR		6
+#define USART_CR3_DMAT		7
+#define USART_CR3_RTSE		8
+#define USART_CR3_CTSE		9
+#define USART_CR3_CTSIE		10
+#define USART_CR3_ONEBIT	11
 
 /*
  * Some miscellaneous macros
