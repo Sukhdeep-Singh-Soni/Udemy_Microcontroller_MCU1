@@ -9,6 +9,7 @@
 #define INC_STM32F401RE_USART_DRIVER_H_
 
 #include "stm32f401re.h"
+#include <stddef.h>
 
 typedef struct {
 	uint8_t USART_Mode; /*goto @USART_Mode*/
@@ -94,6 +95,7 @@ typedef struct {
  * */
 #define USART_BUSY_IN_TX		0
 #define USART_BUSY_IN_RX		1
+#define USART_READY				2
 
 /*
  * USART flag mask macros
@@ -101,6 +103,18 @@ typedef struct {
 #define USART_FLAG_TXE			(1 << USART_SR_TXE)
 #define USART_FLAG_TC			(1 << USART_SR_TC)
 #define USART_FLAG_RXNE			(1 << USART_SR_RXNE)
+
+/*
+ * USART application events
+ * */
+#define USART_EVENT_TX_CMPLT	0
+#define USART_EVENT_RX_CMPLT	1
+#define USART_EVENT_CTS			2
+#define USART_EVENT_IDLE		3
+#define USART_EVENT_ORE			4
+#define USART_ERREVENT_FE		5
+#define USART_ERREVENT_NE		6
+#define USART_ERREVENT_ORE		7
 
 /******************************************************************************************
  *								APIs supported by this driver
@@ -140,7 +154,7 @@ void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnOrDi);
 uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx , uint32_t FlagName);
 void USART_ClearFlag(USART_RegDef_t *pUSARTx, uint16_t StatusFlagName);
 void USART_SetBaudRate(USART_RegDef_t *pUSARTx, uint32_t BaudRate);
-
+void USART_ClearOverrun(USART_RegDef_t *pUSARTx);
 /*
  * Application callback
  */
